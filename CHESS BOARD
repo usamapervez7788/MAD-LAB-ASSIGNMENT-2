@@ -1,0 +1,52 @@
+ import React from 'react';
+import { View, StyleSheet } from 'react-native';
+
+const ChessBoard = () => {
+  const boardSize = 8; // 8x8 chess board
+
+  // Function to generate chess board squares
+  const generateSquares = () => {
+    const squares = [];
+    const colors = ['light', 'dark']; // Alternating colors for squares
+
+    for (let row = 0; row < boardSize; row++) {
+      for (let col = 0; col < boardSize; col++) {
+        const colorIndex = (row + col) % 2; // Alternate colors based on row and column
+        const color = colors[colorIndex];
+
+        squares.push(
+          <View
+            key={`${row}-${col}`}
+            style={[styles.square, { backgroundColor: color === 'light' ? '#f0d9b5' : '#b58863' }]}
+          />
+        );
+      }
+    }
+
+    return squares;
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.board}>{generateSquares()}</View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  board: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  square: {
+    width: '12.5%', // 8 squares per row
+    aspectRatio: 1, // Make squares square-shaped
+  },
+});
+
+export default ChessBoard;
